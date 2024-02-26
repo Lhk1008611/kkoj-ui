@@ -13,6 +13,18 @@ import BasicLayout from "@/layouts/BasicLayout";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import PERMISSION_ENUM from "@/access/permissionEnum";
+import { onMounted } from "vue";
+
+/**
+ * 全局初始化函数
+ */
+const doInit = () => {
+  console.log("kkoj 系统欢迎你！");
+};
+
+onMounted(() => {
+  doInit();
+});
 
 const store = useStore();
 const router = useRouter();
