@@ -12,13 +12,14 @@
 import BasicLayout from "@/layouts/BasicLayout";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import PERMISSION_ENUM from "@/access/permissionEnum";
 
 const store = useStore();
 const router = useRouter();
 router.beforeEach((to, from, next) => {
   if (
-    to.meta.access === "adminAccess" &&
-    store.state.user?.loginUserInfo?.userRole !== "admin"
+    to.meta.access === PERMISSION_ENUM.ADMIN &&
+    store.state.user?.loginUserInfo?.userRole !== PERMISSION_ENUM.ADMIN
   ) {
     next("/no-auth");
   }

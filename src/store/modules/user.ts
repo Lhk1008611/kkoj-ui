@@ -1,11 +1,12 @@
 import { Commit, StoreOptions } from "vuex";
+import PERMISSION_ENUM from "@/access/permissionEnum";
 
 export default {
   namespaced: true,
   state: () => ({
     loginUserInfo: {
       userName: "未登录",
-      userRole: "xxx",
+      userRole: PERMISSION_ENUM.NOT_LOGIN,
     },
   }),
   getters: {},

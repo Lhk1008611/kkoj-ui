@@ -2,6 +2,7 @@ import { RouteRecordRaw } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
 import ManagerView from "@/views/ManagerView.vue";
+import PERMISSION_ENUM from "@/access/permissionEnum";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -23,7 +24,7 @@ export const routes: Array<RouteRecordRaw> = [
     name: "后台管理",
     component: ManagerView,
     meta: {
-      access: "adminAccess",
+      access: PERMISSION_ENUM.ADMIN,
     },
   },
   {

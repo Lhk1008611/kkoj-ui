@@ -31,8 +31,9 @@
 <script setup lang="ts">
 import { routes } from "../router/routes";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import checkPermission from "@/access/checkPermission";
 
 //默认选中的菜单
 const selectedKeys = ref(["/"]);
@@ -48,13 +49,23 @@ router.afterEach((to) => {
   selectedKeys.value = [to.path];
 });
 
-const visibleRoutes = routes.filter((item) => {
-  return !item.meta?.hiddenInMenu; //根据路由的meta属性判断是否隐藏该菜单
-  // todo 根据用户的权限判断是否隐藏菜单
-});
-
 //用于获取store中的全局状态数据
 const store = useStore();
+const visibleRoutes = computed(() => {
+  return routes.filter((item) => {
+    //根据用户的权限判断是否隐藏菜单
+    if (
+      !checkPermission(
+        store.state.user?.loginUserInfo,
+        item.meta?.access as string
+      )
+    ) {
+      return false;
+    }
+    //根据路由的meta属性判断是否隐藏该菜单
+    return !item.meta?.hiddenInMenu;
+  });
+});
 </script>
 <style scoped>
 .basic-header {
