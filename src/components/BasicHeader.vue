@@ -16,7 +16,7 @@
             <div class="title">kkoj</div>
           </div>
         </a-menu-item>
-        <a-menu-item v-for="item in routes" :key="item.path"
+        <a-menu-item v-for="item in visibleRoutes" :key="item.path"
           >{{ item.name }}
         </a-menu-item>
       </a-menu>
@@ -46,6 +46,11 @@ const clickMenuItem = (key: string) => {
 //路由跳转后更新菜单选中状态
 router.afterEach((to) => {
   selectedKeys.value = [to.path];
+});
+
+const visibleRoutes = routes.filter((item) => {
+  return !item.meta?.hiddenInMenu; //根据路由的meta属性判断是否隐藏该菜单
+  // todo 根据用户的权限判断是否隐藏菜单
 });
 
 //用于获取store中的全局状态数据
