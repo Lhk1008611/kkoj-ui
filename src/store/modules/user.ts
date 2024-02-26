@@ -5,6 +5,7 @@ export default {
   state: () => ({
     loginUserInfo: {
       userName: "未登录",
+      userRole: "xxx",
     },
   }),
   getters: {},
