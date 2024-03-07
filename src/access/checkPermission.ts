@@ -1,7 +1,7 @@
 import PERMISSION_ENUM from "@/access/permissionEnum";
 
 /**
- * 全局检查用户权限函数（根据需要的权限判断用户是否有权限）
+ * 全局检查用户权限函数（根据需要的权限判断用户是否有权限进入某个页面）
  * @param user 用户信息
  * @param needPermission 需要的权限
  * @return boolean
