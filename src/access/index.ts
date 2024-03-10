@@ -6,11 +6,13 @@ import checkPermission from "@/access/checkPermission";
 //在路由跳转前执行
 router.beforeEach(async (to, from, next) => {
   //自动登录逻辑
-  const userinfo = store.state.user?.loginUserInfo;
-  const userRole = userinfo.userRole;
-  if (userinfo == null || userRole == null) {
+
+  if (store.state.user?.loginUserInfo.userRole == null) {
     await store.dispatch("user/getUserInfo");
   }
+
+  const userinfo = store.state.user?.loginUserInfo;
+  const userRole = userinfo.userRole;
 
   const needPermission = to.meta?.access ?? PERMISSION_ENUM.NOT_LOGIN;
   //页面只需要未登录权限则直接跳转

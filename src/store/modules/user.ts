@@ -14,7 +14,6 @@ export default {
     //从远程获取登录用户的信息并更新到vuex
     async getUserInfo({ commit, state }) {
       const response = await UserControllerService.getLoginUserUsingGet();
-      console.log(response);
       //已登录，则更新用户信息
       if (response.code === 0) {
         commit("updateUserInfo", response.data);
