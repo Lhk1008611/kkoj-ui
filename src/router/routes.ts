@@ -3,6 +3,9 @@ import HomeView from "@/views/HomeView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
 import ManagerView from "@/views/ManagerView.vue";
 import PERMISSION_ENUM from "@/access/permissionEnum";
+import LoginView from "@/views/user/LoginView.vue";
+import RegisterView from "@/views/user/RegisterView.vue";
+import UserLayout from "@/layouts/UserLayout.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -13,11 +16,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "在线做题",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    component: () => import("../views/AboutView.vue"),
   },
   {
     path: "/manager",
@@ -34,5 +33,25 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       hiddenInMenu: true,
     },
+  },
+  {
+    path: "/user",
+    name: "用户管理",
+    component: UserLayout,
+    meta: {
+      hiddenInMenu: true,
+    },
+    children: [
+      {
+        path: "/user/login",
+        name: "登录",
+        component: LoginView,
+      },
+      {
+        path: "/user/register",
+        name: "注册",
+        component: RegisterView,
+      },
+    ],
   },
 ];
