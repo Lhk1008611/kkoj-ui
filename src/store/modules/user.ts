@@ -1,4 +1,4 @@
-import { Commit, StoreOptions } from "vuex";
+import { StoreOptions } from "vuex";
 import PERMISSION_ENUM from "@/access/permissionEnum";
 import { UserControllerService } from "../../../generated";
 
@@ -15,7 +15,7 @@ export default {
     async getUserInfo({ commit, state }) {
       const response = await UserControllerService.getLoginUserUsingGet();
       //已登录，则更新用户信息
-      if (response.code === 0) {
+      if (response.code === 200) {
         commit("updateUserInfo", response.data);
       } else {
         //未登录，则给用户信息添加上未登录的权限

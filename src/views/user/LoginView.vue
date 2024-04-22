@@ -45,7 +45,7 @@ const router = useRouter();
  */
 const handleSubmit = async () => {
   const response = await UserControllerService.userLoginUsingPost(form);
-  if (response.code == 0) {
+  if (response.code == 200) {
     message.success("登录成功");
 
     //更新全局的用户信息
