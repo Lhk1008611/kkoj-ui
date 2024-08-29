@@ -17,3 +17,4 @@ export type Page_Post_ = {
   size?: number;
   total?: number;
 };
+

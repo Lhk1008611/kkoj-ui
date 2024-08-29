@@ -2,13 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type LoginUserVO = {
+export type QuestionSubmit = {
+  code?: string;
   createTime?: string;
   id?: number;
+  isDelete?: number;
+  judgeInfo?: string;
+  language?: string;
+  questionId?: number;
+  status?: number;
   updateTime?: string;
-  userAvatar?: string;
-  userName?: string;
-  userProfile?: string;
-  userRole?: string;
+  userId?: number;
 };
 
