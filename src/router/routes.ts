@@ -2,6 +2,8 @@ import { RouteRecordRaw } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
 import ManagerView from "@/views/ManagerView.vue";
+import AddQuestionView from "@/views/question/AddQuestionView.vue";
+
 import PERMISSION_ENUM from "@/access/permissionEnum";
 import LoginView from "@/views/user/LoginView.vue";
 import RegisterView from "@/views/user/RegisterView.vue";
@@ -17,6 +19,14 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/about",
     name: "在线做题",
     component: () => import("../views/AboutView.vue"),
+  },
+  {
+    path: "add/question/",
+    name: "创建题目",
+    component: AddQuestionView,
+    meta: {
+      access: PERMISSION_ENUM.ADMIN,
+    },
   },
   {
     path: "/manager",
