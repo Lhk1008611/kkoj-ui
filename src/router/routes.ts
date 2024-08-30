@@ -20,6 +20,9 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/about",
     name: "在线做题",
     component: () => import("../views/AboutView.vue"),
+    meta: {
+      access: PERMISSION_ENUM.USER,
+    },
   },
   {
     path: "/manager/question/",
