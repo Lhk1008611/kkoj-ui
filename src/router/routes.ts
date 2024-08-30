@@ -2,6 +2,7 @@ import { RouteRecordRaw } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
 import ManagerView from "@/views/ManagerView.vue";
+import ManagerQuestionView from "@/views/question/ManagerQuestionView.vue";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
 
 import PERMISSION_ENUM from "@/access/permissionEnum";
@@ -21,7 +22,15 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/AboutView.vue"),
   },
   {
-    path: "add/question/",
+    path: "/manager/question/",
+    name: "题目管理",
+    component: ManagerQuestionView,
+    meta: {
+      access: PERMISSION_ENUM.ADMIN,
+    },
+  },
+  {
+    path: "/add/question/",
     name: "创建题目",
     component: AddQuestionView,
     meta: {
