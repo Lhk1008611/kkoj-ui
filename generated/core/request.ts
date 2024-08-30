@@ -1,16 +1,21 @@
 /* generated using openapi-typescript-codegen -- do no edit */
+import type {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
 import axios from "axios";
-import type { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosInstance } from "axios";
 import FormData from "form-data";
 
 import { ApiError } from "./ApiError";
 import type { ApiRequestOptions } from "./ApiRequestOptions";
 import type { ApiResult } from "./ApiResult";
-import { CancelablePromise } from "./CancelablePromise";
 import type { OnCancel } from "./CancelablePromise";
+import { CancelablePromise } from "./CancelablePromise";
 import type { OpenAPIConfig } from "./OpenAPI";
 
 export const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {

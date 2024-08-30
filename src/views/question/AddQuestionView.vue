@@ -108,11 +108,20 @@
       </a-form>
       <div :style="{ textAlign: 'center' }">
         <a-button
+          v-if="!isUpdateQuestion"
           size="large"
           type="primary"
           @click="handleSubmit(form)"
           style="min-width: 220px"
           >创建题目</a-button
+        >
+        <a-button
+          v-if="isUpdateQuestion"
+          size="large"
+          type="primary"
+          @click="handleSubmit(form)"
+          style="min-width: 220px"
+          >更新题目</a-button
         >
       </div>
     </div>
@@ -121,20 +130,18 @@
 
 <script setup lang="ts">
 import MyByteMd from "@/components/MyByteMd.vue";
-import { reactive } from "vue";
-import {
-  QuestionAddRequest,
-  QuestionControllerService,
-} from "../../../generated";
+import { onMounted, reactive, ref } from "vue";
+import { QuestionControllerService } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
+import { useRoute } from "vue-router";
 
-const form = reactive({
+const form = ref({
   answer: "",
   content: "",
   judgeCase: [
     {
-      input: "1 2",
-      output: "3 4",
+      input: "",
+      output: "",
     },
   ],
   judgeConfig: {
@@ -142,36 +149,88 @@ const form = reactive({
     stackLimit: 1000,
     timeLimit: 1000,
   },
-  tags: ["相加", "简单"],
-  title: "a+b",
+  tags: [],
+  title: "",
+});
+
+const route = useRoute();
+const isUpdateQuestion = route.path.includes("/update");
+
+const loadUpdateQuestion = async () => {
+  const id = route.query.id as any;
+  if (!id) return;
+  const res = await QuestionControllerService.getQuestionByIdUsingGet(id);
+  if (res.code === 200) {
+    form.value = res.data as any;
+    if (!form.value.judgeCase) {
+      form.value.judgeCase = [
+        {
+          input: "",
+          output: "",
+        },
+      ];
+    } else {
+      form.value.judgeCase = JSON.parse(form.value.judgeCase as any);
+    }
+    if (!form.value.judgeConfig) {
+      form.value.judgeConfig = {
+        memoryLimit: 1000,
+        stackLimit: 1000,
+        timeLimit: 1000,
+      };
+    } else {
+      form.value.judgeConfig = JSON.parse(form.value.judgeConfig as any);
+    }
+    if (!form.value.tags) {
+      form.value.tags = [];
+    } else {
+      form.value.tags = JSON.parse(form.value.tags as any);
+    }
+  } else {
+    message.error("题目加载失败" + res.message);
+  }
+};
+
+onMounted(() => {
+  if (isUpdateQuestion) {
+    loadUpdateQuestion();
+  }
 });
 
 const handleContentChange = (v: string) => {
-  form.content = v;
+  form.value.content = v;
 };
 
 const handleAnswerChange = (v: string) => {
-  form.answer = v;
+  form.value.answer = v;
 };
 
 const handleSubmit = async (data: any) => {
-  console.log(data);
-  const res = await QuestionControllerService.addQuestionUsingPost(data);
-  if (res.code === 200) {
-    message.success("创建题目成功");
+  if (isUpdateQuestion) {
+    const res = await QuestionControllerService.updateQuestionUsingPost(data);
+    if (res.code === 200) {
+      message.success("更新题目成功");
+    } else {
+      message.error("题目更新失败", res.message);
+    }
   } else {
-    message.error("题目创建失败", res.message);
+    const res = await QuestionControllerService.addQuestionUsingPost(data);
+    if (res.code === 200) {
+      message.success("创建题目成功");
+    } else {
+      message.error("题目创建失败", res.message);
+    }
   }
 };
 
 const handleAdd = () => {
-  form.judgeCase.push({
+  form.value.judgeCase.push({
     input: "",
     output: "",
   });
 };
 const handleDelete = (index: number) => {
-  form.judgeCase.splice(index, 1);
+  form.value.judgeCase.splice(index, 1);
 };
 </script>
 

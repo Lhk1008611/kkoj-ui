@@ -38,11 +38,12 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/manager",
-    name: "后台管理",
-    component: ManagerView,
+    path: "/update/question/",
+    name: "更新题目",
+    component: AddQuestionView,
     meta: {
       access: PERMISSION_ENUM.ADMIN,
+      hiddenInMenu: true,
     },
   },
   {
