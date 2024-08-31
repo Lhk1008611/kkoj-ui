@@ -1,10 +1,8 @@
 import { RouteRecordRaw } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
-import ManagerView from "@/views/ManagerView.vue";
 import ManagerQuestionView from "@/views/question/ManagerQuestionView.vue";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
-
+import QuestionView from "@/views/question/QuestionsView.vue";
 import PERMISSION_ENUM from "@/access/permissionEnum";
 import LoginView from "@/views/user/LoginView.vue";
 import RegisterView from "@/views/user/RegisterView.vue";
@@ -14,7 +12,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "题目列表",
-    component: HomeView,
+    component: QuestionView,
   },
   {
     path: "/about",

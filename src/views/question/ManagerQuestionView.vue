@@ -34,7 +34,7 @@ const questions = ref([]);
 const total = ref(0);
 const searchParams = ref({
   current: 1,
-  pageSize: 2,
+  pageSize: 10,
 });
 const loadData = async () => {
   const res = await QuestionControllerService.listQuestionVoByPageUsingPost(
@@ -85,14 +85,13 @@ const columns = [
     dataIndex: "createTime",
   },
   {
-    title: "Optional",
     slotName: "optional",
   },
 ];
 
 const router = useRouter();
 const doUpdate = async (record: any) => {
-  router.push({
+  await router.push({
     path: "/update/question",
     query: {
       id: record.id,
@@ -106,7 +105,7 @@ const doDelete = async (record: any) => {
   });
   if (res.code === 200) {
     message.success("删除成功");
-    loadData();
+    await loadData();
   } else {
     message.error("删除失败", res.message);
   }
