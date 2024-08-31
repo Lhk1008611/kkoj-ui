@@ -3,6 +3,8 @@ import NoAuthView from "@/views/NoAuthView.vue";
 import ManagerQuestionView from "@/views/question/ManagerQuestionView.vue";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import QuestionView from "@/views/question/QuestionsView.vue";
+import PracticeQuestionView from "@/views/question/PracticeQuestionView.vue";
+
 import PERMISSION_ENUM from "@/access/permissionEnum";
 import LoginView from "@/views/user/LoginView.vue";
 import RegisterView from "@/views/user/RegisterView.vue";
@@ -15,11 +17,13 @@ export const routes: Array<RouteRecordRaw> = [
     component: QuestionView,
   },
   {
-    path: "/about",
+    path: "/practice/question/:id",
     name: "在线做题",
-    component: () => import("../views/AboutView.vue"),
+    component: PracticeQuestionView,
+    props: true,
     meta: {
       access: PERMISSION_ENUM.USER,
+      hiddenInMenu: true,
     },
   },
   {

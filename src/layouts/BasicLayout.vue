@@ -18,7 +18,7 @@
 
 <style scoped>
 .basic-layout :deep(.arco-layout-content) {
-  padding: 0px 20px;
+  padding: 20px 20px;
 }
 
 .basic-layout :deep(.arco-layout-footer) {
