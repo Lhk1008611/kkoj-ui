@@ -25,19 +25,19 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/manager/question/",
-    name: "题目管理",
-    component: ManagerQuestionView,
-    meta: {
-      access: PERMISSION_ENUM.ADMIN,
-    },
-  },
-  {
     path: "/add/question/",
     name: "创建题目",
     component: AddQuestionView,
     meta: {
-      access: PERMISSION_ENUM.ADMIN,
+      access: PERMISSION_ENUM.USER,
+    },
+  },
+  {
+    path: "/manager/question/",
+    name: "题目管理",
+    component: ManagerQuestionView,
+    meta: {
+      access: PERMISSION_ENUM.USER,
     },
   },
   {
