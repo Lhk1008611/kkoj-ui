@@ -11,6 +11,7 @@
         total: total,
         showTotal: (total) => `共 ${total} 条数据`,
       }"
+      @page-change="pageChange"
     >
       <template #optional="{ record }">
         <a-space>
@@ -24,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch, watchEffect } from "vue";
 import { QuestionControllerService } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
@@ -33,7 +34,7 @@ const questions = ref([]);
 const total = ref(0);
 const searchParams = ref({
   current: 1,
-  pageSize: 10,
+  pageSize: 2,
 });
 const loadData = async () => {
   const res = await QuestionControllerService.listQuestionVoByPageUsingPost(
@@ -110,6 +111,20 @@ const doDelete = async (record: any) => {
     message.error("删除失败", res.message);
   }
 };
+
+const pageChange = async (page: number) => {
+  searchParams.value = {
+    ...searchParams.value,
+    current: page,
+  };
+};
+
+/**
+ * @description: 监听搜索参数的变化，重新加载数据
+ */
+watchEffect(() => {
+  loadData();
+});
 </script>
 
 <style scoped>
