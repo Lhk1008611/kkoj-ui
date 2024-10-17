@@ -37,23 +37,17 @@ const codeEditor = ref();
 const myEditor = ref();
 
 /**
- * 监听语言变化，重新创建编辑器
+ * 监听语言变化
  */
 watch(
   () => props.language,
   () => {
-    myEditor.value.language = props.language;
-
-    //   monaco.editor.create(codeEditor.value, {
-    //   value: props.value,
-    //   language: props.language,
-    //   automaticLayout: true,
-    //   readOnly: false,
-    //   minimap: {
-    //     enabled: true,
-    //   },
-    //   theme: "vs-dark",
-    // });
+    if (myEditor.value) {
+      monaco.editor.setModelLanguage(
+        toRaw(myEditor.value).getModel(),
+        props.language
+      );
+    }
   }
 );
 
