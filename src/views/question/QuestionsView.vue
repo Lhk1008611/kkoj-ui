@@ -80,9 +80,11 @@ const searchParams = ref({
   pageSize: 10,
 });
 const loadData = async () => {
-  const res = await QuestionControllerService.listQuestionVoByPageUsingPost(
-    searchParams.value
-  );
+  const res = await QuestionControllerService.listQuestionVoByPageUsingPost({
+    ...searchParams.value,
+    sortField: "createTime",
+    sortOrder: "descend",
+  });
   if (res.code === 200) {
     questions.value = res.data.records;
     total.value = res.data.total;
