@@ -4,6 +4,7 @@ import ManagerQuestionView from "@/views/question/ManagerQuestionView.vue";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import QuestionView from "@/views/question/QuestionsView.vue";
 import PracticeQuestionView from "@/views/question/PracticeQuestionView.vue";
+import QuestionSubmitView from "@/views/question/QuestionSubmitView.vue";
 
 import PERMISSION_ENUM from "@/access/permissionEnum";
 import LoginView from "@/views/user/LoginView.vue";
@@ -13,6 +14,11 @@ import UserLayout from "@/layouts/UserLayout.vue";
 export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
+    name: "题目提交记录",
+    component: QuestionSubmitView,
+  },
+  {
+    path: "/questions",
     name: "题目列表",
     component: QuestionView,
   },
